@@ -5,7 +5,7 @@ class Task extends Component {
   render() {
     return (
       <React.Fragment>
-        <h3>This is a task</h3>
+        <h4>{this.props.task.text}</h4>
       </React.Fragment>
     );
   }
