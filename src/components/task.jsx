@@ -5,7 +5,10 @@ class Task extends Component {
   render() {
     return (
       <React.Fragment>
-        <h4>{this.props.task.text}</h4>
+          <div className="row"> 
+            <div className="col-4">{this.props.task.id}</div>
+            <div className="col-4">{this.props.task.text}</div>
+          </div>
       </React.Fragment>
     );
   }
