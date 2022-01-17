@@ -23,10 +23,7 @@ class App extends Component {
     this.setState({ tasks });
   };
 
-  handleSubmit = (event, value) => {
-    console.log("event: ", event);
-    console.log("value: ", value);
-
+  handleSubmit = (value) => {
     const tasks = [...this.state.tasks];
 
     var nextTaskID = 1
@@ -38,7 +35,6 @@ class App extends Component {
     tasks.push({ id: nextTaskID, text: value });
     this.setState({ tasks });
 
-    event.preventDefault();
   };
 
   render() {
