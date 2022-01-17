@@ -60,8 +60,8 @@ class List extends Component {
           </div>
         </form>
 
-        {this.props.tasks.map((task) => (
-          <Task key={task.id} task={task}></Task>
+        {this.props.tasks.map((task, index) => (
+            <Task key={task.id} number={index + 1} task={task} onRemove={this.props.onRemove}></Task>
         ))}
       </React.Fragment>
     );

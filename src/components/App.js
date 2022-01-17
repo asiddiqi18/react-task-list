@@ -7,14 +7,10 @@ class App extends Component {
       { id: 1, text: "lorem ipsum" },
       { id: 2, text: "alpha beta charlie" },
       { id: 3, text: "sample text" },
+      { id: 4, text: "california" },
+      { id: 5, text: "texas" },
+      { id: 6, text: "new york" },
     ],
-  };
-
-  addNewTask = () => {
-    console.log("Adding new task...");
-    const tasks = [...this.state.tasks];
-    tasks.push({ id: tasks.length + 1, text: "lol" });
-    this.setState({ tasks });
   };
 
   resetAllTasks = () => {
@@ -22,12 +18,24 @@ class App extends Component {
     this.setState({ tasks: [] });
   };
 
+  handleRemove = (task) => {
+    const tasks = this.state.tasks.filter(c => c.id !== task.id);
+    this.setState({ tasks });
+  };
+
   handleSubmit = (event, value) => {
-    console.log("event: ", event)
-    console.log("value: ", value)
+    console.log("event: ", event);
+    console.log("value: ", value);
 
     const tasks = [...this.state.tasks];
-    tasks.push({ id: tasks.length + 1, text: value });
+
+    var nextTaskID = 1
+
+    if (tasks.length > 0) {
+      nextTaskID = tasks[tasks.length - 1].id + 1
+    }
+
+    tasks.push({ id: nextTaskID, text: value });
     this.setState({ tasks });
 
     event.preventDefault();
@@ -39,9 +47,9 @@ class App extends Component {
         <div className="container mt-5">
           <List
             tasks={this.state.tasks}
-            onAdd={this.addNewTask}
             onReset={this.resetAllTasks}
             onSubmit={this.handleSubmit}
+            onRemove={this.handleRemove}
           />
         </div>
       </React.Fragment>
