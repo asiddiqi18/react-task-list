@@ -3,14 +3,7 @@ import List from "./list";
 
 class App extends Component {
   state = {
-    tasks: [
-      { id: 1, text: "lorem ipsum", checked: false },
-      { id: 2, text: "alpha beta charlie", checked: false },
-      { id: 3, text: "sample text", checked: false },
-      { id: 4, text: "california", checked: false },
-      { id: 5, text: "texas", checked: false },
-      { id: 6, text: "new york", checked: false },
-    ],
+    tasks: []
   };
 
   resetAllTasks = () => {
@@ -47,15 +40,21 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-          <div className="container mt-5">
-            <List
-              tasks={this.state.tasks}
-              onReset={this.resetAllTasks}
-              onSubmit={this.handleSubmit}
-              onRemove={this.handleRemove}
-              onCheck={this.handleCheck}
-            />
-          </div>
+
+<div class="text-center p-3 mb-4 bg-light rounded-3">
+      <div class="container-fluid py-4">
+        <h1 class="display-5 fw-bold">Task List</h1>
+      </div>
+    </div>
+        <div className="container mt-5">
+          <List
+            tasks={this.state.tasks}
+            onReset={this.resetAllTasks}
+            onSubmit={this.handleSubmit}
+            onRemove={this.handleRemove}
+            onCheck={this.handleCheck}
+          />
+        </div>
       </React.Fragment>
     );
   }

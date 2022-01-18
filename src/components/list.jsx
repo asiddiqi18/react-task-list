@@ -51,7 +51,7 @@ class List extends Component {
                 className=" btn btn-primary"
                 disabled={this.isBlank(this.state.value) ? "disabled" : ""}
               >
-                Add <i className="fa fa-plus" aria-hidden="true"></i>
+                Add
               </button>
             </div>
 
@@ -62,7 +62,7 @@ class List extends Component {
                 className="float-end btn btn-danger"
                 disabled={this.props.tasks.length == 0 ? "disabled" : ""}
               >
-                Delete All <i className="fa fa-trash" aria-hidden="true"></i>
+                Delete All
               </button>
             </div>
           </div>
