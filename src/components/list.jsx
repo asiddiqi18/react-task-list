@@ -21,16 +21,15 @@ class List extends Component {
   };
 
   isBlank(str) {
-    return (!str || /^\s*$/.test(str));
-}
+    return !str || /^\s*$/.test(str);
+  }
 
   render() {
     return (
       <React.Fragment>
-
         <form>
-          <div className="row align-items-center mb-5">            
-            <div className="submit-inline col-6">
+          <div className="row align-items-center mb-5">
+            <div className="col-md-9 mb-2">
               <div className="form-floating">
                 <input
                   type="input"
@@ -45,23 +44,22 @@ class List extends Component {
               </div>
             </div>
 
-            <div className="col-2">
+            <div className="col-md-1 col-6">
               <button
                 type="submit"
                 onClick={this.handleSubmit}
-                className="submit-inline button-fat btn btn-primary"
+                className=" btn btn-primary"
                 disabled={this.isBlank(this.state.value) ? "disabled" : ""}
-
               >
                 Add <i className="fa fa-plus" aria-hidden="true"></i>
               </button>
             </div>
 
-            <div className="col-2">
+            <div className="col-md-2 col-6">
               <button
                 type="reset"
                 onClick={this.props.onReset}
-                className="btn btn-danger"
+                className="float-end btn btn-danger"
                 disabled={this.props.tasks.length == 0 ? "disabled" : ""}
               >
                 Delete All <i className="fa fa-trash" aria-hidden="true"></i>
@@ -70,15 +68,23 @@ class List extends Component {
           </div>
         </form>
 
-        {this.props.tasks.map((task, index) => (
-          <Task
-            key={task.id}
-            number={index + 1}
-            task={task}
-            onRemove={this.props.onRemove}
-            onCheck={this.props.onCheck}
-          ></Task>
-        ))}
+          <div className="card-header">
+            <div className="row my-2">
+              <div className="col-md-1 col-1">#</div>
+              <div className="col-md-9 col-7">Task</div>
+              <div className="col-md-1 col-2"><div className="float-end">Remove</div></div>
+              <div className="col-md-1 col-2"><div className="float-end">Check</div></div>
+            </div>
+          </div>
+            {this.props.tasks.map((task, index) => (
+              <Task
+                key={task.id}
+                number={index + 1}
+                task={task}
+                onRemove={this.props.onRemove}
+                onCheck={this.props.onCheck}
+              ></Task>
+            ))}
       </React.Fragment>
     );
   }

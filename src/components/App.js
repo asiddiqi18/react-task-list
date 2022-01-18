@@ -19,7 +19,7 @@ class App extends Component {
   };
 
   handleRemove = (task) => {
-    const tasks = this.state.tasks.filter(c => c.id !== task.id);
+    const tasks = this.state.tasks.filter((c) => c.id !== task.id);
     this.setState({ tasks });
   };
 
@@ -29,34 +29,33 @@ class App extends Component {
     tasks[index] = { ...task };
     tasks[index].checked = !tasks[index].checked;
     this.setState({ tasks });
-  }
+  };
 
   handleSubmit = (value) => {
     const tasks = [...this.state.tasks];
 
-    var nextTaskID = 1
+    var nextTaskID = 1;
 
     if (tasks.length > 0) {
-      nextTaskID = tasks[tasks.length - 1].id + 1
+      nextTaskID = tasks[tasks.length - 1].id + 1;
     }
 
     tasks.push({ id: nextTaskID, text: value });
     this.setState({ tasks });
-
   };
 
   render() {
     return (
       <React.Fragment>
-        <div className="container mt-5">
-          <List
-            tasks={this.state.tasks}
-            onReset={this.resetAllTasks}
-            onSubmit={this.handleSubmit}
-            onRemove={this.handleRemove}
-            onCheck={this.handleCheck}
-          />
-        </div>
+          <div className="container mt-5">
+            <List
+              tasks={this.state.tasks}
+              onReset={this.resetAllTasks}
+              onSubmit={this.handleSubmit}
+              onRemove={this.handleRemove}
+              onCheck={this.handleCheck}
+            />
+          </div>
       </React.Fragment>
     );
   }

@@ -12,29 +12,30 @@ class Task extends Component {
       check_color_class = "info";
     }
 
+
     return (
-      <React.Fragment>
-        <div className={"row m-2 " + strikethrough_class}>
-          <div className="col-1">{this.props.number}</div>
-          <div className={"col-5 "}>{this.props.task.text}</div>
-          <div className="col-2">
-            <button
-              onClick={() => this.props.onRemove(this.props.task)}
-              className="btn btn-sm btn-secondary"
-            >
-             <i className="fa fa-minus" aria-hidden="true"></i>
-            </button>
+          <div className="card py-2 my-3">
+            <div className={"row m-2 " + strikethrough_class}>
+              <div className="col-md-1 col-1">{this.props.number}</div>
+              <div className={"col-md-9 col-7"}>{this.props.task.text}</div>
+              <div className="col-md-1 col-2">
+                <button
+                  onClick={() => this.props.onRemove(this.props.task)}
+                  className="float-end btn btn-sm btn-secondary"
+                >
+                  <i className="fa fa-minus" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div className="col-md-1 col-2">
+                <button
+                  onClick={() => this.props.onCheck(this.props.task)}
+                  className={"float-end btn btn-sm btn-" + check_color_class}
+                >
+                  <i className={"fa " + check_icon_class} aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="col-2">
-            <button
-              onClick={() => this.props.onCheck(this.props.task)}
-              className={"btn btn-sm btn-" + check_color_class}
-            >
-              <i className={"fa " + check_icon_class} aria-hidden="true"></i>
-            </button>
-          </div>
-        </div>
-      </React.Fragment>
     );
   }
 }
