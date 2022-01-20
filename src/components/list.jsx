@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import Task from "./task";
+import Pagination from "./pagination";
+import { paginate, countTotalIndex } from "./utils/paginate";
+import "react-edit-text/dist/index.css";
 
 class List extends Component {
   constructor(props) {
@@ -7,6 +10,8 @@ class List extends Component {
 
     this.state = {
       value: "",
+      currentPage: 1,
+      pageSize: 4,
     };
   }
 
@@ -24,9 +29,23 @@ class List extends Component {
     return !str || /^\s*$/.test(str);
   }
 
+  handlePageChange = (page) => {
+    console.log(page);
+    this.setState({ currentPage: page });
+  };
+
+
+
   render() {
+    const tasks = paginate(
+      this.props.tasks,
+      this.state.currentPage,
+      this.state.pageSize
+    );
+
     return (
       <React.Fragment>
+        {/* Form */}
         <form>
           <div className="row align-items-center mb-5">
             <div className="col-md-9 mb-2">
@@ -43,7 +62,6 @@ class List extends Component {
                 <label htmlFor="floatinginput">Create a Task</label>
               </div>
             </div>
-
             <div className="col-md-1 col-6">
               <button
                 type="submit"
@@ -54,13 +72,12 @@ class List extends Component {
                 Add
               </button>
             </div>
-
             <div className="col-md-2 col-6">
               <button
                 type="reset"
                 onClick={this.props.onReset}
                 className="float-end btn btn-danger"
-                disabled={this.props.tasks.length == 0 ? "disabled" : ""}
+                disabled={this.props.tasks.length === 0 ? "disabled" : ""}
               >
                 Delete All
               </button>
@@ -68,23 +85,46 @@ class List extends Component {
           </div>
         </form>
 
-          <div className="card-header">
-            <div className="row my-2">
-              <div className="col-md-1 col-1">#</div>
-              <div className="col-md-9 col-7">Task</div>
-              <div className="col-md-1 col-2"><div className="float-end">Remove</div></div>
-              <div className="col-md-1 col-2"><div className="float-end">Check</div></div>
+        {/* Header */}
+        <div className="card-header">
+          <div className="row my-2">
+            <div className="col-md-1 col-4">
+              <div className="row">
+                <div className="col-3">#</div>
+                <div className="col-8"></div>
+              </div>
+            </div>
+            <div className="col-md-10 col-6">Task</div>
+            <div className="col-md-1 col-2">
+              <div className="float-end">Remove</div>
             </div>
           </div>
-            {this.props.tasks.map((task, index) => (
-              <Task
-                key={task.id}
-                number={index + 1}
-                task={task}
-                onRemove={this.props.onRemove}
-                onCheck={this.props.onCheck}
-              ></Task>
-            ))}
+        </div>
+
+        {/* Rows */}
+        {tasks.map((task, index) => (
+          <Task
+            key={task.id}
+            number={countTotalIndex(
+              this.state.currentPage,
+              this.state.pageSize,
+              index
+            )}
+            task={task}
+            onRemove={this.props.onRemove}
+            onCheck={this.props.onCheck}
+            onSave={this.props.onSave}
+
+          ></Task>
+        ))}
+
+        {/* Pagination Control */}
+        <Pagination
+          itemsCount={this.props.tasks.length}
+          pageSize={this.state.pageSize}
+          currentPage={this.state.currentPage}
+          onPageChange={this.handlePageChange}
+        />
       </React.Fragment>
     );
   }

@@ -3,7 +3,14 @@ import List from "./list";
 
 class App extends Component {
   state = {
-    tasks: []
+    tasks: [
+      { id: 1, text: "lorem ipsum", checked: false },
+      { id: 2, text: "alpha beta charlie", checked: false },
+      { id: 3, text: "sample text", checked: false },
+      { id: 4, text: "california", checked: false },
+      { id: 5, text: "texas", checked: false },
+      { id: 6, text: "new york", checked: false },
+    ],
   };
 
   resetAllTasks = () => {
@@ -21,6 +28,15 @@ class App extends Component {
     const index = tasks.indexOf(task);
     tasks[index] = { ...task };
     tasks[index].checked = !tasks[index].checked;
+    this.setState({ tasks });
+  };
+
+  handleSave = ({ name, value, previousValue }) => {
+    var index = parseInt(name.slice(4)) - 1
+    const tasks = [...this.state.tasks];
+    let task = {...tasks[index]}
+    task.text = value;
+    tasks[index] = task
     this.setState({ tasks });
   };
 
@@ -53,6 +69,7 @@ class App extends Component {
             onSubmit={this.handleSubmit}
             onRemove={this.handleRemove}
             onCheck={this.handleCheck}
+            onSave={this.handleSave}
           />
         </div>
       </React.Fragment>
